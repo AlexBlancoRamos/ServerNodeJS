@@ -31,6 +31,7 @@ app.get('/api/clients', async(req,res) =>{
     res.json(clients)
 
 
+
     // const cityRef = db.collection('gerardValldosera').doc('Tq1Gf0P7oNns96jyraxV');
     // const doc = await cityRef.get();
     // if (!doc.exists) {
