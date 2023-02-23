@@ -5,7 +5,7 @@ const app= express()
 
 //var admin = require("firebase-admin");
 
-// var serviceAccount = require("../gerardvalldosera-36248-firebase-adminsdk-ohvi2-643b54da1d.json");
+// var serviceAccount = require("../projecte-botiga-firebase-adminsdk-uc4li-f20664a256.json);
 // const {getFirestore} = require("firebase-admin/firestore");
 //
 // admin.initializeApp({
@@ -20,13 +20,13 @@ app.use(express.json());
 
 app.use(cors());
 
-port = 3080;
+port = 4200;
 
 app.listen(port,() => {
     console.log('Server listening on the port ::'+ port);
 });
 
-app.get('/api/clients', async(req,res) =>{
+app.get('/api/client', async(req,res) =>{
     const clients = {name:"Alex", mail:"blanco@gmail.com"}
     res.json(clients)
 
