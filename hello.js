@@ -1,7 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const app= express()
-const fs1 = require('node:fs');
+const fs1 = require('node:fs'); 
 
 app.use(express.json());
 
@@ -170,5 +170,86 @@ app.post('/api/sendemail/', async function (req, res) {
         console.log('Funciona2')}
     else console.log('no existeix')
 });
+
+app.post('/contacte', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    let fitxerContacte = fs.createWriteStream(`contacte/${data_completa}${req.body.nom}.txt`);
+    fitxerContacte.write(req.body.nom+"\n");
+    fitxerContacte.end(req.body.recomanacio+"\n");
+    console.log("Funciona")
+})
+
+app.post('/registre', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
+    console.log("FuncionaRegistre")
+})
+
+app.post('/login', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.texto}\n`, {flag:'a+'})
+    console.log("FuncionaLogin")
+})
+
+app.post('/cesta', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
+    console.log("FuncionaCesta")
+})
+
+
+app.post('/logout', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
+    console.log("FuncionaLogout")
+})
+
+app.post('/comprar', (req, res)=>{
+    let data = new Date();
+    let dia = data.getDate();
+    let mes = data.getMonth() + 1;
+    let any = data.getFullYear();
+    let hora = data.getHours();
+    let minuts = data.getMinutes();
+    let segons = data.getSeconds();
+    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.texto}\n`, {flag:'a+'})
+    console.log("FuncionaComprar")
+})
 
 
