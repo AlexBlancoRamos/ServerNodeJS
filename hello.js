@@ -2,7 +2,6 @@ const cors = require('cors');
 const express = require('express');
 const app= express()
 const fs1 = require('node:fs');
-const stream =require('stream');
 
 app.use(express.json());
 
@@ -70,6 +69,7 @@ app.post('/registre', cors(), async (req, res) => {
 });
 
 app.get('/inicisessio', async (req,res)=>{
+    connexio_bd();
     const db = getFirestore();
     let correu = {email: req.query.email}
     let resultat = false;
@@ -82,6 +82,7 @@ app.get('/inicisessio', async (req,res)=>{
 });
 
 app.get('/contrasenya', async (req,res)=>{
+    connexio_bd();
     const db = getFirestore();
     let correu = {contra_login: req.query.contra}
     let resultat = false;
@@ -159,6 +160,7 @@ app.post('/api/sendemail/', async function (req, res) {
     await sendEmail(name, email, subject, message , pass  );
 
     //Logica contra:
+    connexio_bd();
     const db = getFirestore();
     const cityRef = db.collection('ProjecteTenda').doc(req.body.email);
     const doc = await cityRef.get();
