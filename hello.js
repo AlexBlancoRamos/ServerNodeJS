@@ -1,20 +1,40 @@
 const cors = require('cors');
 const express = require('express');
 const app= express()
+const fs1 = require('node:fs');
+const stream =require('stream');
 
 app.use(express.json());
 
-const admin = require("firebase-admin");
+let connexio;
 
-const serviceAccount = require("./projecte-botiga-firebase-adminsdk-uc4li-f20664a256.json");
+fs1.readFile("base_de_dades", "utf-8", function (error,data) {
+    if (error){
+        console.log(error)
+    } else {
+        connexio = data;
+        console.log(connexio)
+    }
+})
+
+const admin = require("firebase-admin");
 const {getFirestore} = require("firebase-admin/firestore");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
 
-const db = getFirestore();
+//setTimeout(function (){connexio_bd()},5000);
 
+function connexio_bd(){
+    console.log(connexio)
+    const serviceAccount = require(connexio);
+    console.log("funciona")
+
+    if(admin.apps.length === 0) {
+        console.log("funciona2")
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+        });
+    }
+}
 
 
 
@@ -31,6 +51,8 @@ app.listen(port,() => {
 //});
 
 app.post('/registre', cors(), async (req, res) => {
+    connexio_bd();
+    const db = getFirestore();
     const user = {
         'nom': req.body.nom,
         'email': req.body.email,
@@ -48,6 +70,7 @@ app.post('/registre', cors(), async (req, res) => {
 });
 
 app.get('/inicisessio', async (req,res)=>{
+    const db = getFirestore();
     let correu = {email: req.query.email}
     let resultat = false;
     const docs = db.collection('ProjecteTenda')
@@ -59,6 +82,7 @@ app.get('/inicisessio', async (req,res)=>{
 });
 
 app.get('/contrasenya', async (req,res)=>{
+    const db = getFirestore();
     let correu = {contra_login: req.query.contra}
     let resultat = false;
     const docs = db.collection('ProjecteTenda')
@@ -135,7 +159,7 @@ app.post('/api/sendemail/', async function (req, res) {
     await sendEmail(name, email, subject, message , pass  );
 
     //Logica contra:
-
+    const db = getFirestore();
     const cityRef = db.collection('ProjecteTenda').doc(req.body.email);
     const doc = await cityRef.get();
     console.log('Funciona1')
