@@ -1,7 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 const app= express()
-const fs1 = require('node:fs'); 
+const fs1 = require('node:fs');
+const stream = require("stream");
 
 app.use(express.json());
 
@@ -179,14 +180,14 @@ app.post('/contacte', (req, res)=>{
     let hora = data.getHours();
     let minuts = data.getMinutes();
     let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    let fitxerContacte = fs.createWriteStream(`contacte/${data_completa}${req.body.nom}.txt`);
+    let data_completa = `${dia}${mes}${any}${hora}${minuts}${segons}`;
+    let fitxerContacte = fs1.createWriteStream(`contacte/${data_completa}${req.body.nom}.txt`);
     fitxerContacte.write(req.body.nom+"\n");
     fitxerContacte.end(req.body.recomanacio+"\n");
     console.log("Funciona")
 })
 
-app.post('/registre', (req, res)=>{
+app.post('/registres', (req, res)=>{
     let data = new Date();
     let dia = data.getDate();
     let mes = data.getMonth() + 1;
