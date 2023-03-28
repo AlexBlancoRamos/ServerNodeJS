@@ -252,4 +252,67 @@ app.post('/comprar', (req, res)=>{
     console.log("FuncionaComprar")
 })
 
+//imatges
+app.get('/fotos/cascos1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\cascos.png")
+})
 
+app.get('/fotos/ComponentsElectrics',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\ComponentsElectrics.png")
+})
+
+app.get('/fotos/periferic1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\periferic1.png")
+})
+
+app.get('/fotos/periferic2',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\periferic2.png")
+})
+
+app.get('/fotos/periferic3',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\periferic3.png")
+})
+
+app.get('/fotos/periferic4',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\periferic4.png")
+})
+
+app.get('/fotos/periferic5',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\periferic5.png")
+})
+
+app.get('/fotos/placa',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\placabase1.png")
+})
+
+app.get('/fotos/ram1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\ram1.png")
+})
+
+app.get('/fotos/ratoli1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\ratoli1.png")
+})
+
+app.get('/fotos/teclat1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\teclat1.png")
+})
+
+app.get('/fotos/torre1',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\torre1.png")
+})
+
+app.get('/fotos/torre2',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\torre2.png")
+})
+
+app.get('/fotos/torre3',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\torre3.png")
+})
+
+app.get('/fotos/torre4',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\torre4.png")
+})
+
+app.get('/fotos/torre5',async (req, res)=>{
+    res.sendFile(__dirname + "\\fotos\\torre5.png")
+})
