@@ -1,0 +1,6 @@
+
+28/3/2023|14-15-55 S'ha registrat amb l'usuari: bbb  i correu: bbb
+28/3/2023|14-16-10 A iniciat sessio amb el correu: bbb  i contrasenya: bbb
+28/3/2023|14-16-38   L'usuari: bbb  a afegit a la cesta 
+28/3/2023|14-16-47   L'usuari: bbb  a afegit a la cesta p2
+28/3/2023|14-17-2  L'usuari: bbb  a comprat.
