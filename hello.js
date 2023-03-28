@@ -254,7 +254,7 @@ app.post('/comprar', (req, res)=>{
 
 //imatges
 app.get('/fotos/cascos1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\cascos.png")
+    res.sendFile(__dirname + "\\fotos\\cascos1.png")
 })
 
 app.get('/fotos/ComponentsElectrics',async (req, res)=>{
@@ -281,7 +281,7 @@ app.get('/fotos/periferic5',async (req, res)=>{
     res.sendFile(__dirname + "\\fotos\\periferic5.png")
 })
 
-app.get('/fotos/placa',async (req, res)=>{
+app.get('/fotos/placabase1',async (req, res)=>{
     res.sendFile(__dirname + "\\fotos\\placabase1.png")
 })
 
