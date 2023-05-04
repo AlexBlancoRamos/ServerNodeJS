@@ -1,7 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 const app= express()
-const fs1 = require('node:fs'); 
+const fs1 = require('node:fs');
+const mysql = require('mysql2');
 
 app.use(express.json());
 
@@ -34,6 +35,22 @@ function connexio_bd(){
         });
     }
 }
+
+
+const config = JSON.parse(fs1.readFileSync('MySQL.json', 'utf8'));
+
+const connection = mysql.createConnection({
+    host     : config.host,
+    user     : config.user,
+    password : config.password,
+    database : config.database
+});
+
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('Conectado a la base de datos MySQL!');
+});
+
 
 
 
@@ -94,8 +111,6 @@ app.get('/contrasenya', async (req,res)=>{
     res.json(resultat)
 });
 
-
-
 const axios = require('axios');
 
 async function sendEmail(name, email, subject, message, pass) {
@@ -107,7 +122,7 @@ async function sendEmail(name, email, subject, message, pass) {
             "From": {"Email": "alex.blanco@institutvidreres.cat", "Name": "ComponentsElectronics"},
             "To": [{"Email": email, "Name": name}],
             "Subject": 'Nova contrasenya',
-            "TextPart": 'L a tev a nova contrasenya es :  ' + pass
+            "TextPart": 'La teva nova contrasenya es :  ' + pass
         }]
     });
 
@@ -171,148 +186,118 @@ app.post('/api/sendemail/', async function (req, res) {
     else console.log('no existeix')
 });
 
-app.post('/contacte', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"-"}${mes}${"-"}${any}${"-"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    let fitxerContacte = fs1.createWriteStream(`contacte/${data_completa}${req.body.nom}.txt`);
-    fitxerContacte.write(req.body.nom+"\n");
-    fitxerContacte.end(req.body.recomanacio+"\n");
-    console.log("Funciona")
-})
-
-app.post('/registres', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
-    console.log("FuncionaRegistre")
-})
-
-app.post('/login', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.texto}\n`, {flag:'a+'})
-    console.log("FuncionaLogin")
-})
-
-app.post('/cesta', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
-    console.log("FuncionaCesta")
-})
 
 
-app.post('/logout', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.text}\n`, {flag:'a+'})
-    console.log("FuncionaLogout")
-})
+    app.post('/contacte', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"-"}${mes}${"-"}${any}${"-"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        let fitxerContacte = fs1.createWriteStream(`contacte/${data_completa}${req.body.nom}.txt`);
+        fitxerContacte.write(req.body.nom + "\n");
+        fitxerContacte.end(req.body.recomanacio + "\n");
+        console.log("Funciona")
+    })
 
-app.post('/comprar', (req, res)=>{
-    let data = new Date();
-    let dia = data.getDate();
-    let mes = data.getMonth() + 1;
-    let any = data.getFullYear();
-    let hora = data.getHours();
-    let minuts = data.getMinutes();
-    let segons = data.getSeconds();
-    let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
-    fs1.writeFileSync("log/log.txt",`${data_completa} ${req.body.texto}\n`, {flag:'a+'})
-    console.log("FuncionaComprar")
-})
+    app.post('/registres', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        fs1.writeFileSync("log/log.txt", `${data_completa} ${req.body.text}\n`, {flag: 'a+'})
+        console.log("FuncionaRegistre")
+    })
 
-//imatges
-app.get('/fotos/cascos1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\cascos1.png")
-})
+    app.post('/login', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        fs1.writeFileSync("log/log.txt", `${data_completa} ${req.body.texto}\n`, {flag: 'a+'})
+        console.log("FuncionaLogin")
+    })
 
-app.get('/fotos/ComponentsElectrics',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\ComponentsElectrics.png")
-})
+    app.post('/cesta', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        fs1.writeFileSync("log/log.txt", `${data_completa} ${req.body.text}\n`, {flag: 'a+'})
+        console.log("FuncionaCesta")
+    })
 
-app.get('/fotos/periferic1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\periferic1.png")
-})
 
-app.get('/fotos/periferic2',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\periferic2.png")
-})
+    app.post('/logout', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        fs1.writeFileSync("log/log.txt", `${data_completa} ${req.body.text}\n`, {flag: 'a+'})
+        console.log("FuncionaLogout")
+    })
 
-app.get('/fotos/periferic3',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\periferic3.png")
-})
+    app.post('/comprar', (req, res) => {
+        let data = new Date();
+        let dia = data.getDate();
+        let mes = data.getMonth() + 1;
+        let any = data.getFullYear();
+        let hora = data.getHours();
+        let minuts = data.getMinutes();
+        let segons = data.getSeconds();
+        let data_completa = `${dia}${"/"}${mes}${"/"}${any}${"|"}${hora}${"-"}${minuts}${"-"}${segons}`;
+        fs1.writeFileSync("log/log.txt", `${data_completa} ${req.body.texto}\n`, {flag: 'a+'})
+        console.log("FuncionaComprar")
+    })
 
-app.get('/fotos/periferic4',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\periferic4.png")
-})
+    app.get('/imatges/:nom', (req, res) => {
+        const nomImatge = req.params.nom;
+        const rutaImatge = `${__dirname}/fotos/${nomImatge}`;
+        const stream = fs1.createReadStream(rutaImatge);
+        stream.pipe(res);
+    })
 
-app.get('/fotos/periferic5',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\periferic5.png")
-})
+    app.get('/info_prod', (req, res) => {
+        connection.query('SELECT * FROM botiga.productos', (error, results) => {
+            if (error) throw error;
+            res.send(results);
+        })
+    })
 
-app.get('/fotos/placabase1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\placabase1.png")
-})
+    app.post('/insert_compra', (req, res) => {
+        const query = req.body.query;
+        const values = req.body.values;
+        connection.query(query, values, (err, result) => {
+            if (err) {
+                res.status(500).send(`Error: ${err}`)
+            } else {
+                res.send(`Compra inserida a la bd`)
+            }
+        })
+    });
 
-app.get('/fotos/ram1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\ram1.png")
-})
-
-app.get('/fotos/ratoli1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\ratoli1.png")
-})
-
-app.get('/fotos/teclat1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\teclat1.png")
-})
-
-app.get('/fotos/torre1',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\torre1.png")
-})
-
-app.get('/fotos/torre2',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\torre2.png")
-})
-
-app.get('/fotos/torre3',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\torre3.png")
-})
-
-app.get('/fotos/torre4',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\torre4.png")
-})
-
-app.get('/fotos/torre5',async (req, res)=>{
-    res.sendFile(__dirname + "\\fotos\\torre5.png")
-})
+app.get('/dadescompres', (req, res) => {
+    connection.query('SELECT * FROM botiga.historial_ventes', (error, results) => {
+        if (error) throw error;
+        res.json(results);
+    });
+});

@@ -4,3 +4,10 @@
 28/3/2023|14-16-38   L'usuari: bbb  a afegit a la cesta 
 28/3/2023|14-16-47   L'usuari: bbb  a afegit a la cesta p2
 28/3/2023|14-17-2  L'usuari: bbb  a comprat.
+1/5/2023|18-10-13  L'usuari: null  a comprat.
+2/5/2023|14-20-13 S'ha registrat amb l'usuari: pol  i correu: pol@gmail.com
+2/5/2023|14-20-21 A iniciat sessio amb el correu: pol@gmail.com  i contrasenya: 123
+3/5/2023|20-26-19 A iniciat sessio amb el correu: alex.blanco@institutvidreres.cat  i contrasenya: 123
+4/5/2023|8-43-21 Ha iniciat sessio amb el correu: alex.blanco@institutvidreres.cat  i contrasenya: 123
+4/5/2023|8-47-31   L'usuari: null  a afegit a la cesta un producto
+4/5/2023|8-47-37  L'usuari: invitado  a comprat.
